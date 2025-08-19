@@ -1,0 +1,3 @@
+[submodule "QBobinkClient"]
+	path = QBobinkClient
+	url = git@github.com:tvanbesi/QBobinkClient.git
