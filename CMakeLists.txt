@@ -26,6 +26,8 @@ qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     FILES
         qtquickcontrols2.conf)
 
+add_subdirectory(QBobinkClient)
+
 include(qds)
 
 if (BUILD_QDS_COMPONENTS)
