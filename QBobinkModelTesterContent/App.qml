@@ -11,11 +11,50 @@ Window {
     visible: true
     title: "QBobinkModelTester"
 
+    // ==================================================
+    // ==================================================
+    // ==================================================
+
+    // Peut être placé n'importe où pour agir quand le proxy se connecte/déconnecte
+    Connections {
+        target: QBobinkModel
+        onProxyConnected: () => {
+                              console.log("CONNECTED")
+                              stack.push(initialStackItem)
+                          }
+        onProxyDisconnected: () => {
+                                 console.log("DISCONNECTED")
+                                 stack.push(proxyOffComp)
+                             }
+    }
+
+    Component {
+        id: proxyOffComp
+
+        Rectangle {
+            color: "lightgray"
+
+            Text {
+                text: "Proxy disconnected!"
+                anchors.centerIn: parent
+            }
+        }
+    }
+
+    // ==================================================
+    // ==================================================
+    // ==================================================
+
     StackView {
         id: stack
         anchors.fill: parent
+        initialItem: initialStackItem
+    }
 
-        initialItem: ListView {
+    Component {
+        id: initialStackItem
+
+        ListView {
             model: QBobinkModel
             delegate: ItemDelegate {
                 text: "Machine ID = " + machineId
