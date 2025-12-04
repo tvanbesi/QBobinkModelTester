@@ -26,6 +26,13 @@ Window {
                                  console.log("DISCONNECTED")
                                  stack.push(proxyOffComp)
                              }
+        onMachineDisconnected: id => {
+                                   console.log(
+                                       "MACHINE " + id + " DISCONNECTED")
+                               }
+        onMachineConnected: id => {
+                                console.log("MACHINE " + id + " CONNECTED")
+                            }
     }
 
     Component {
@@ -44,7 +51,6 @@ Window {
     // ==================================================
     // ==================================================
     // ==================================================
-
     StackView {
         id: stack
         anchors.fill: parent

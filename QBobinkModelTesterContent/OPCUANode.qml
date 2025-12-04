@@ -5,7 +5,6 @@ import Bobink 1.0
 // fix duplicate nodeInit signals being received
 // discard connection after init
 // qmltype integration for node and machine types
-
 Item {
     id: root
 
@@ -37,14 +36,19 @@ Item {
             return
         }
 
-        root.nodeIdStr = "ns=" + namespaceId + ';' + (typeof nodeId === "string" ? "s=" : "i=") + nodeId
+        root.nodeIdStr = "ns=" + namespaceId + ';'
+                + (typeof nodeId === "string" ? "s=" : "i=") + nodeId
 
         root.machine.subReq(root.namespaceId, root.nodeId)
+        root.machine.nodeReadReq(root.namespaceId, root.nodeId)
         root.node = root.machine.getNode(root.nodeIdStr)
+        if (root.node && root.node.value)
+            root.value = root.node.value
         if (root.node === null) {
             root.machine.nodeInit.connect(function (idStr) {
-                if ((node !== null && node !== undefined) || idStr !== root.nodeIdStr)
-                    return;
+                if ((node !== null && node !== undefined)
+                        || idStr !== root.nodeIdStr)
+                    return
                 root.node = root.machine.getNode(idStr)
                 connectValueChanged()
             })
