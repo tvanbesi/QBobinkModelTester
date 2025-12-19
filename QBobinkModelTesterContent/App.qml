@@ -102,6 +102,148 @@ Window {
                     spacing: 8
 
                     Row {
+                        TextField {
+                            id: xPLStatusTextField
+                            placeholderText: "Print Head ID"
+                        }
+                        Button {
+                            text: "SEND XPL PH STATUS REQUEST"
+                            onClicked: {
+                                console.log("(" + page.machineId, parseInt(xPLStatusTextField.text) + ")")
+                                QBobinkModel.sendXPLPHStatus(
+                                            page.machineId,
+                                            parseInt(xPLStatusTextField.text))
+                            }
+                        }
+                    }
+
+                    Row {
+                        TextField {
+                            id: xPLPurgePeriod
+                            placeholderText: "Period"
+                        }
+                        TextField {
+                            id: xPLPurgeDelay
+                            placeholderText: "Delay"
+                        }
+                        Button {
+                            text: "SEND XPL PURGE REQUEST"
+                            onClicked: QBobinkModel.sendXPLPurge(
+                                           page.machineId,
+                                           parseInt(xPLPurgePeriod.text),
+                                           parseInt(xPLPurgeDelay.text))
+                        }
+                    }
+
+                    Row {
+                        Column {
+                            Row {
+                                Text {
+                                    text: "PH 1"
+                                }
+                                ComboBox {
+                                    id: ph1State
+                                    model: ["on", "off"]
+                                }
+                            }
+                            Row {
+                                Text {
+                                    text: "PH 2"
+                                }
+                                ComboBox {
+                                    id: ph2State
+                                    model: ["on", "off"]
+                                }
+                            }
+                            Row {
+                                Text {
+                                    text: "PH 3"
+                                }
+                                ComboBox {
+                                    id: ph3State
+                                    model: ["on", "off"]
+                                }
+                            }
+                            Row {
+                                Text {
+                                    text: "PH 4"
+                                }
+                                ComboBox {
+                                    id: ph4State
+                                    model: ["on", "off"]
+                                }
+                            }
+                            Row {
+                                Text {
+                                    text: "PH 5"
+                                }
+                                ComboBox {
+                                    id: ph5State
+                                    model: ["on", "off"]
+                                }
+                            }
+                            Row {
+                                Text {
+                                    text: "PH 6"
+                                }
+                                ComboBox {
+                                    id: ph6State
+                                    model: ["on", "off"]
+                                }
+                            }
+                            Row {
+                                Text {
+                                    text: "PH 7"
+                                }
+                                ComboBox {
+                                    id: ph7State
+                                    model: ["on", "off"]
+                                }
+                            }
+                            Row {
+                                Text {
+                                    text: "PH 8"
+                                }
+                                ComboBox {
+                                    id: ph8State
+                                    model: ["on", "off"]
+                                }
+                            }
+                        }
+                        Button {
+                            text: "SEND XPL ARRAY ACTIVATE REQUEST"
+                            onClicked: {
+                                let newPhStates = [1, ph1State.currentValue === "on" ? 1 : 0, 2, ph2State.currentValue === "on" ? 1 : 0, 3, ph3State.currentValue === "on" ? 1 : 0, 4, ph4State.currentValue === "on" ? 1 : 0, 5, ph5State.currentValue === "on" ? 1 : 0, 6, ph6State.currentValue === "on" ? 1 : 0, 7, ph7State.currentValue === "on" ? 1 : 0, 8, ph8State.currentValue === "on" ? 1 : 0]
+                                QBobinkModel.sendXPLPHArrayActivate(
+                                            page.machineId, newPhStates)
+                            }
+                        }
+                    }
+
+                    Row {
+                        TextField {
+                            id: xPLPHPWMId
+                            placeholderText: "Print Head ID"
+                        }
+                        TextField {
+                            id: xPLPHPWMFreq
+                            placeholderText: "Frequency"
+                        }
+                        TextField {
+                            id: xPLPHPWMDuty
+                            placeholderText: "Duty cycle"
+                        }
+                        Button {
+                            text: "SEND XPL PWM REQUEST"
+                            onClicked: QBobinkModel.sendXPLPHPWM(
+                                           page.machineId,
+                                           parseInt(xPLPHPWMId.text),
+                                           parseInt(xPLPHPWMFreq.text),
+                                           parseInt(xPLPHPWMDuty.text))
+                        }
+                    }
+
+                    Row {
                         OPCUANode {
                             id: node1
                             machineId: page.machineId
